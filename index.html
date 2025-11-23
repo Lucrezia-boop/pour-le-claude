@@ -34,7 +34,6 @@
             line-height: 1.8;
             color: var(--text-dark);
             background-color: var(--bg-cream);
-            padding: 20px;
         }
 
         /* Container */
@@ -290,7 +289,8 @@
         .badge-important {
             background: #ede8e3;
             color: var(--primary-brown-dark);
-            border: 1px solid var(--border-warm);
+            border: 2px solid var(--primary-brown-dark);
+            font-weight: 500;
         }
 
         /* Checkboxes for verification */
@@ -472,20 +472,27 @@
             font-weight: 500;
         }
 
-        /* Adjust container for sidebar */
+        /* Adjust container for sidebar - center main content */
         body {
-            padding-left: 320px;
+            display: flex;
+            justify-content: center;
+            padding: 20px 20px 20px 300px;
         }
 
         .container {
-            margin-left: 0;
+            margin: 0;
+            flex-shrink: 0;
+        }
+
+        .nav-sidebar {
+            margin-right: 60px;
         }
 
         /* Mobile Responsive */
         @media (max-width: 1400px) {
             .nav-sidebar {
-                left: 20px;
                 width: 200px;
+                margin-right: 40px;
             }
             body {
                 padding-left: 260px;
@@ -497,7 +504,8 @@
                 display: none;
             }
             body {
-                padding-left: 20px;
+                padding: 20px;
+                display: block;
             }
             .container {
                 margin: 0 auto;
@@ -594,6 +602,57 @@
 
         <hr>
 
+        <h2>UNPACKING: Extract the Installation Bundle</h2>
+
+        <div class="warning-box">
+            <h4><strong class="badge badge-important">IMPORTANT:</strong> Disk Space Requirement</h4>
+            <p>You need <strong>at least 50GB of free disk space</strong> on the drive where you'll install:</p>
+            <ul>
+                <li>30GB for software (Python, CUDA, ComfyUI, packages)</li>
+                <li>20GB for AI models (downloaded on first run)</li>
+            </ul>
+            <p><strong>Check your available space before proceeding!</strong></p>
+        </div>
+
+        <p><strong>Follow these four simple steps:</strong></p>
+
+        <ol>
+            <li><strong>Check your disk space and choose a location:</strong>
+                <ul>
+                    <li>Find a drive with <strong>at least 50GB free space</strong> (C:, D:, or any drive)</li>
+                    <li>Create a new folder with <strong>ANY NAME you choose</strong></li>
+                    <li>Examples: <code>C:\SD3D\</code>, <code>D:\AI_Projects\</code>, <code>E:\Hunyuan\</code></li>
+                </ul>
+            </li>
+
+            <li><strong>Extract the bundle to that folder:</strong>
+                <ul>
+                    <li>Right-click <code>bundle_setup-files.zip</code> → <strong>"Extract All..."</strong></li>
+                    <li>Browse to the folder you just created</li>
+                    <li>Click <strong>"Extract"</strong></li>
+                </ul>
+            </li>
+
+            <li><strong>Understand what the installer will create:</strong>
+                <p>When you run Phase 2 (the automated installer), it will <strong>automatically</strong> create a <code>ComfyUI</code> folder at the <strong>same root location</strong> as your bundle. You don't need to choose anything - the script proceeds autonomously.</p>
+                <p><strong>Final result after installation:</strong></p>
+                <pre><code>D:\SD3D\                          (or your chosen folder name)
+├── bundle-DONE/                  (bundle renamed after successful install)
+│   └── ... (all setup files)
+├── ComfyUI/                      (created automatically by installer)
+│   ├── main.py
+│   └── custom_nodes/
+│       └── ComfyUI-Hunyuan3D-2_1/  (extracted automatically)
+└── start_comfyui.bat             (desktop shortcut created)</code></pre>
+            </li>
+
+            <li><strong>No further action needed - proceed to Phase 1:</strong>
+                <p>That's it! You've completed unpacking. Now scroll down and follow <strong>Phase 1: Foundation Software</strong> to begin the actual installation. The script will handle everything automatically.</p>
+            </li>
+        </ol>
+
+        <hr>
+
         <h2>Installation Overview</h2>
 
         <div class="info-box">
@@ -607,7 +666,6 @@
             <p><strong>No manual typing of commands required after Phase 1 verification!</strong></p>
         </div>
 
-        <p>This installation has <strong>TWO PHASES</strong>:</p>
 
         <h3>PHASE 1: Foundation Software (Manual Installation) <span class="badge badge-time">~1 hour</span></h3>
         <p>These are industry-standard tools that require one-time setup:</p>
@@ -643,12 +701,12 @@
             <li>Double-click <code>Miniconda3-latest-Windows-x86_64.exe</code></li>
             <li>Installation wizard:
                 <ul>
-                    <li>Click "Next" → "I Agree"</li>
-                    <li><strong class="badge badge-important">IMPORTANT:</strong> Select "Just Me (recommended)"</li>
-                    <li><strong class="badge badge-important">IMPORTANT:</strong> Check "Add installation to my PATH environment variable" ✓</li>
-                    <li><strong class="badge badge-important">IMPORTANT:</strong> Check "Register Miniconda3 as my default Python 3.13" ✓</li>
-                    <li>Click "Install" (wait ~2 minutes)</li>
-                    <li>Click "Finish"</li>
+                    <li>Click <strong>"Next"</strong> → <strong>"I Agree"</strong></li>
+                    <li><strong class="badge badge-important">IMPORTANT:</strong> Select <strong>"Just Me (recommended)"</strong></li>
+                    <li><strong class="badge badge-important">IMPORTANT:</strong> Check <strong>"Add installation to my PATH environment variable"</strong> ✓</li>
+                    <li><strong class="badge badge-important">IMPORTANT:</strong> Check <strong>"Register Miniconda3 as my default Python 3.13"</strong> ✓</li>
+                    <li>Click <strong>"Install"</strong> (wait ~2 minutes)</li>
+                    <li>Click <strong>"Finish"</strong></li>
                 </ul>
             </li>
         </ol>
@@ -658,37 +716,6 @@
         </div>
         <p class="screenshot-caption">This is the most critical checkbox - must be checked for installation to succeed!</p>
 
-        <div class="critical-box">
-            <h4>CRITICAL VERIFICATION:</h4>
-            <ol>
-                <li>Open Command Prompt (search "cmd" in Start menu)</li>
-                <li>Type: <code>python --version</code></li>
-                <li>Should show: <code>Python 3.x.x</code> (with Miniconda in the path)</li>
-                <li><strong>If you get "python is not recognized":</strong>
-                    <ul>
-                        <li>You MUST uninstall and reinstall Miniconda</li>
-                        <li>This time CHECK the "Add to PATH" checkbox during installation</li>
-                        <li>The automated installer WILL FAIL without this!</li>
-                    </ul>
-                </li>
-            </ol>
-        </div>
-
-        <h4>Also verify conda:</h4>
-        <ul>
-            <li>In the same Command Prompt, type: <code>conda --version</code></li>
-            <li>Should show: <code>conda 24.x.x</code> (or similar)</li>
-            <li>If command not found, restart Command Prompt and try again</li>
-        </ul>
-
-        <div class="screenshot-placeholder screenshot-small">
-            Screenshot: Command Prompt showing "python --version" output successfully
-        </div>
-        <p class="screenshot-caption">Example: "Python 3.11.x" confirms PATH is configured correctly</p>
-
-        <div class="stop-check">
-            ⛔ STOP & CHECK: Do NOT proceed to Step 2 until both <code>python --version</code> and <code>conda --version</code> work correctly!
-        </div>
 
         <hr>
 
@@ -700,8 +727,8 @@
             <li>In <code>bundle_setup-files/1_Installers/</code>, double-click <code>cuda_12.8.0_windows_10.exe</code></li>
             <li>Installer starts:
                 <ul>
-                    <li><strong class="badge badge-important">IMPORTANT:</strong> Choose "Custom (Advanced)" installation (NOT Express!)</li>
-                    <li>Click "Next"</li>
+                    <li><strong class="badge badge-important">IMPORTANT:</strong> Choose <strong>"Custom (Advanced)"</strong> installation (NOT Express!)</li>
+                    <li>Click <strong>"Next"</strong></li>
                 </ul>
             </li>
             <li><strong>Select components to install:</strong>
@@ -711,13 +738,13 @@
                     <li><strong>UNCHECK:</strong> CUDA Driver (may conflict with your existing drivers)</li>
                     <li><strong>UNCHECK:</strong> GeForce Experience / NVIDIA App (unnecessary bloat)</li>
                     <li><strong>UNCHECK:</strong> Visual Studio Integration (we don't need this)</li>
-                    <li>Click "Next"</li>
+                    <li>Click <strong>"Next"</strong></li>
                 </ul>
             </li>
-            <li>Accept default installation location, click "Next"
+            <li>Accept default installation location, click <strong>"Next"</strong>
                 <ul>
                     <li>Wait 10-15 minutes for installation</li>
-                    <li>Click "Close" when complete</li>
+                    <li>Click <strong>"Close"</strong> when complete</li>
                 </ul>
             </li>
         </ol>
@@ -727,8 +754,8 @@
         </div>
         <p class="screenshot-caption">Show ONLY "CUDA Toolkit 12.8" checked, all others unchecked (Driver, GeForce Experience, etc.)</p>
 
-        <div class="warning-box">
-            <strong>⚠️ CRITICAL: Restart your computer</strong> after CUDA installation
+        <div class="stop-check">
+            ⛔ STOP: Restart your computer after CUDA installation
         </div>
 
         <hr>
@@ -754,12 +781,17 @@
             </ul>
         </div>
 
+        <div class="screenshot-placeholder">
+            Screenshot: VS Build Tools - Individual Components tab with search bar at top
+        </div>
+        <p class="screenshot-caption">Show the search bar and one component being searched/checked (e.g., "MSVC v143")</p>
+
         <div class="critical-box">
             <h4>CRITICAL STEP 2 - Select Individual Components:</h4>
             <ol>
                 <li>Click the <strong>"Individual Components" tab</strong> (next to Workloads tab at top)</li>
                 <li>You'll see a search bar at the TOP of the Individual Components tab</li>
-                <li>For each component below, <strong>copy the entire name and paste into the search bar</strong>, then check the box:</li>
+                <li>For each component below (one component per line), <strong>copy the entire name and paste into the search bar</strong>, then check the box:</li>
             </ol>
             <pre><code>MSVC v143 - VS 2022 C++ x64/x86 build tools (Latest)
 Windows 11 SDK (10.0.26100.6901)
@@ -778,24 +810,14 @@ C++ MFC for latest v143 build tools (x86 & x64)</code></pre>
             </ul>
         </div>
 
-        <div class="screenshot-placeholder">
-            Screenshot: VS Build Tools - Individual Components tab with search bar at top
-        </div>
-        <p class="screenshot-caption">Show the search bar and one component being searched/checked (e.g., "MSVC v143")</p>
-
         <ol start="5">
             <li><strong>Start Installation:</strong>
                 <ul>
-                    <li>Click "Install" (wait 15-20 minutes)</li>
-                    <li>Click "Close" when complete</li>
+                    <li>Click <strong>"Install"</strong> (wait 15-20 minutes)</li>
+                    <li>Click <strong>"Close"</strong> when complete</li>
                 </ul>
             </li>
         </ol>
-
-        <div class="info-box">
-            <h4>Installation Verification:</h4>
-            <p>The <code>verify_prerequisites.bat</code> script in Step 5 will automatically check that all components are installed correctly. No manual verification needed!</p>
-        </div>
 
         <hr>
 
@@ -807,23 +829,18 @@ C++ MFC for latest v143 build tools (x86 & x64)</code></pre>
             <li>In <code>bundle_setup-files/1_Installers/</code>, double-click <code>Git-x.xx.x-64-bit.exe</code></li>
             <li>Installer starts:
                 <ul>
-                    <li>Click "Next" through most options (defaults are fine)</li>
-                    <li><strong class="badge badge-important">IMPORTANT:</strong> When you see "Adjusting your PATH environment"
-                        <ul><li>Select: "Git from the command line and also from 3rd-party software"</li></ul>
+                    <li>Click <strong>"Next"</strong> through most options (defaults are fine)</li>
+                    <li><strong class="badge badge-important">IMPORTANT:</strong> When you see <strong>"Adjusting your PATH environment"</strong>
+                        <ul><li>Select: <strong>"Git from the command line and also from 3rd-party software"</strong></li></ul>
                     </li>
-                    <li><strong class="badge badge-important">IMPORTANT:</strong> When you see "Configuring the line ending conversions"
-                        <ul><li>Select: "Checkout as-is, commit as-is"</li></ul>
+                    <li><strong class="badge badge-important">IMPORTANT:</strong> When you see <strong>"Configuring the line ending conversions"</strong>
+                        <ul><li>Select: <strong>"Checkout as-is, commit as-is"</strong></li></ul>
                     </li>
-                    <li>Continue clicking "Next" → "Install"</li>
-                    <li>Click "Finish"</li>
+                    <li>Continue clicking <strong>"Next"</strong> → <strong>"Install"</strong></li>
+                    <li>Click <strong>"Finish"</strong></li>
                 </ul>
             </li>
         </ol>
-
-        <div class="info-box">
-            <h4>Git Configuration:</h4>
-            <p>The <code>verify_prerequisites.bat</code> script (Step 5) will automatically configure Git for long paths. No manual commands needed!</p>
-        </div>
 
         <hr>
 
@@ -833,9 +850,9 @@ C++ MFC for latest v143 build tools (x86 & x64)</code></pre>
         <h4>Steps:</h4>
         <ol>
             <li>In <code>bundle_setup-files/2_Registry_And_Verification/</code>, double-click <code>enable_long_paths.reg</code></li>
-            <li>Click "Yes" to UAC prompt</li>
-            <li>Click "Yes" to registry edit confirmation</li>
-            <li>Click "OK" when done</li>
+            <li>Click <strong>"Yes"</strong> to UAC prompt</li>
+            <li>Click <strong>"Yes"</strong> to registry edit confirmation</li>
+            <li>Click <strong>"OK"</strong> when done</li>
         </ol>
 
         <div class="warning-box">
@@ -874,7 +891,7 @@ C++ MFC for latest v143 build tools (x86 & x64)</code></pre>
                 <li>Run <code>verify_prerequisites.bat</code> again until all show <code>[OK]</code></li>
             </ol>
             <div class="stop-check">
-                ⛔ STOP & CHECK: Do NOT proceed to Phase 2 until ALL checks pass!
+                ⛔ STOP & CHECK: Do NOT proceed to Phase 2 until ALL checks pass! For errors, refer to Troubleshooting section in the left index.
             </div>
         </div>
 
@@ -886,38 +903,38 @@ C++ MFC for latest v143 build tools (x86 & x64)</code></pre>
 
         <div class="info-box">
             <strong>Bundle Folder Structure:</strong>
-            <pre style="background: #f1f5f9; padding: 15px; border-radius: 6px; margin-top: 10px; overflow-x: auto;">
-bundle_setup-files/
+            <pre style="background: #f1f5f9; padding: 15px; border-radius: 6px; margin-top: 10px; overflow-x: auto; font-weight: 600;">bundle_setup-files/
 ├── START_HERE.txt
 ├── 1_Installers/
+│   ├── cuda_12.8.0_571.96_windows.exe
+│   ├── Git-2.52.0-64-bit.exe
 │   ├── Miniconda3-latest-Windows-x86_64.exe
-│   ├── cuda_12.8.0_windows_10.exe
-│   ├── vs_BuildTools.exe
-│   └── Git-2.xx.x-64-bit.exe
+│   └── vs_BuildTools.exe
+│
 ├── 2_Registry_And_Verification/
 │   ├── enable_long_paths.reg
 │   └── verify_prerequisites.bat
+│
 ├── 3_Automated_Install/
+│   ├── ComfyUI-Hunyuan3D-2_1.zip
 │   ├── install_comfyui_hunyuan3d.bat
 │   ├── install_comfyui_hunyuan3d.py
-│   ├── requirements_fixed.txt
-│   └── ComfyUI-Hunyuan3D-2_1.zip <span style="color: #dc2626;">← YOU COPY HERE</span>
-└── 4_Testing_And_Cleanup/
-    ├── test_hunyuan3d.bat
-    └── cleanup_installation.bat</pre>
+│   └── requirements_fixed.txt
+│
+├── 4_Testing_And_Cleanup/
+│   ├── cleanup_installation.bat
+│   └── test_hunyuan3d.bat
+│
+└── 5_Photoshop_Prep_Workflow/
+    ├── h21_311.json
+    └── SquareCanvas.js</pre>
         </div>
 
-        <ol>
-            <li><strong>Prepare the Hunyuan3D files:</strong>
-                <ul>
-                    <li>You should have received <code>ComfyUI-Hunyuan3D-2_1.zip</code> separately</li>
-                    <li><strong>Step 1:</strong> Copy <code>ComfyUI-Hunyuan3D-2_1.zip</code> to <code>bundle_setup-files/3_Automated_Install/</code></li>
-                    <li><strong>Step 2:</strong> Right-click the zip file → Extract All → Extract to <code>3_Automated_Install\</code> folder (extract in-place)</li>
-                    <li><strong>Step 3:</strong> Delete the <code>ComfyUI-Hunyuan3D-2_1.zip</code> file after extraction</li>
-                    <li><strong class="badge badge-important">RESULT:</strong> You should see a <code>ComfyUI-Hunyuan3D-2_1</code> folder (NOT a .zip) in <code>3_Automated_Install/</code></li>
-                </ul>
-            </li>
-        </ol>
+        <div class="warning-box">
+            <h4>⚠️ IMPORTANT: Do NOT extract ComfyUI-Hunyuan3D-2_1.zip</h4>
+            <p>The <code>ComfyUI-Hunyuan3D-2_1.zip</code> file is already in <code>3_Automated_Install/</code> and <strong>must remain as a zip file</strong>. The automated installer script will extract it to the correct location during installation.</p>
+            <p><strong>Leave it as is - do not extract or delete it!</strong></p>
+        </div>
 
         <hr>
 
@@ -1024,6 +1041,43 @@ First run will download AI models (~13GB) - please be patient.</code></pre>
 
         <hr>
 
+        <h3>Final Installation Verification</h3>
+
+        <div class="success-box">
+            <h4>✅ Verify Your Installation is Complete</h4>
+            <p><strong>Check your installation folder structure matches this exactly:</strong></p>
+            <pre><code>D:\SD3D\                          (or your chosen folder name)
+├── bundle-DONE/                  (renamed after successful install)
+│   ├── START_HERE.txt
+│   ├── 1_Installers/
+│   ├── 2_Registry_And_Verification/
+│   ├── 3_Automated_Install/
+│   ├── 4_Testing_And_Cleanup/
+│   └── 5_Photoshop_Prep_Workflow/
+├── ComfyUI/                      (created by installer)
+│   ├── main.py
+│   ├── models/
+│   ├── output/                   (your generated 3D models go here)
+│   └── custom_nodes/
+│       └── ComfyUI-Hunyuan3D-2_1/  (Hunyuan3D nodes)
+│           ├── workflows/        (example workflows here)
+│           ├── __init__.py
+│           └── nodes_Ava.py
+└── start_comfyui.bat             (or desktop shortcut)</code></pre>
+        </div>
+
+        <div class="info-box">
+            <p><strong>AI Models Location (downloaded on first launch):</strong></p>
+            <pre><code>C:\Users\[YourUsername]\.cache\hy3dgen\tencent\Hunyuan3D-2.1\
+├── hunyuan3d-dit-v2-1/           (~8GB)
+└── hunyuan3d-paintpbr-v2-1/      (~5GB)</code></pre>
+            <p>These are cached automatically - you don't need to manage them.</p>
+        </div>
+
+        <p><strong>If everything matches above, your installation is complete! 🎉</strong></p>
+
+        <hr>
+
         <h2 id="usage">Using ComfyUI with Hunyuan3D</h2>
 
         <h3>Daily Usage</h3>
@@ -1046,10 +1100,10 @@ First run will download AI models (~13GB) - please be patient.</code></pre>
             <li>Sample workflows are in: <code>C:\AI\ComfyUI_Hunyuan3D\ComfyUI\custom_nodes\ComfyUI-Hunyuan3D-2_1\workflows\</code></li>
             <li>In ComfyUI web interface:
                 <ul>
-                    <li>Click "Load" button</li>
+                    <li>Click <strong>"Load"</strong> button</li>
                     <li>Navigate to workflows folder</li>
                     <li>Select a <code>.json</code> workflow file</li>
-                    <li>Click "Open"</li>
+                    <li>Click <strong>"Open"</strong></li>
                 </ul>
             </li>
         </ol>
@@ -1057,8 +1111,8 @@ First run will download AI models (~13GB) - please be patient.</code></pre>
         <h3>Generating 3D Models</h3>
         <ol>
             <li>Load a workflow (see above)</li>
-            <li>Upload an image (drag & drop into "Load Image" node)</li>
-            <li>Click "Queue Prompt" button</li>
+            <li>Upload an image (drag & drop into <strong>"Load Image"</strong> node)</li>
+            <li>Click <strong>"Queue Prompt"</strong> button</li>
             <li><strong>Processing time:</strong> 4-7 minutes per model (RTX 4090)</li>
             <li>Output files saved to: <code>C:\AI\ComfyUI_Hunyuan3D\ComfyUI\output\</code></li>
         </ol>
@@ -1106,7 +1160,7 @@ First run will download AI models (~13GB) - please be patient.</code></pre>
             <ul>
                 <li><strong>Most likely cause:</strong> Missing individual components</li>
                 <li><strong>Fix:</strong> Re-run <code>vs_BuildTools.exe</code> from <code>1_Installers/</code></li>
-                <li>Choose "Modify" if already installed</li>
+                <li>Choose <strong>"Modify"</strong> if already installed</li>
                 <li>Make sure ALL 8 individual components are checked (see Step 3)</li>
                 <li>Run <code>verify_prerequisites.bat</code> again</li>
             </ul>
@@ -1118,7 +1172,7 @@ First run will download AI models (~13GB) - please be patient.</code></pre>
             <ul>
                 <li><strong>Need:</strong> 50GB+ free space on C: drive</li>
                 <li><strong>Fix:</strong> Free up disk space</li>
-                <li>Use Disk Cleanup: Search "cleanmgr" in Start menu</li>
+                <li>Use Disk Cleanup: Search <strong>"cleanmgr"</strong> in Start menu</li>
                 <li>Consider moving personal files to external drive</li>
                 <li>Run <code>verify_prerequisites.bat</code> again</li>
             </ul>
@@ -1250,10 +1304,10 @@ First run will download AI models (~13GB) - please be patient.</code></pre>
         <div class="info-box">
             <h4>📋 How to capture verify_prerequisites.bat output:</h4>
             <ol>
-                <li>Right-click on <code>verify_prerequisites.bat</code> → "Run as administrator"</li>
+                <li>Right-click on <code>verify_prerequisites.bat</code> → <strong>"Run as administrator"</strong></li>
                 <li>When it finishes, right-click the title bar of the Command Prompt window</li>
-                <li>Select "Edit" → "Select All"</li>
-                <li>Press Enter to copy</li>
+                <li>Select <strong>"Edit"</strong> → <strong>"Select All"</strong></li>
+                <li>Press <strong>Enter</strong> to copy</li>
                 <li>Paste into an email or text file to send for support</li>
             </ol>
         </div>
