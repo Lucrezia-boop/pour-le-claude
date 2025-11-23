@@ -717,59 +717,46 @@
             <p>CUDA requires Visual Studio Build Tools to be installed <strong>first</strong> so it can detect and integrate with the C++ compiler. Installing in the wrong order will cause CUDA to skip compiler integration.</p>
         </div>
 
-        <h4>Installation:</h4>
+        <h4>Installation (Fully Automated - Offline Mode):</h4>
         <ol>
-            <li>In <code>bundle_setup-files/1_Installers/</code>, double-click <code>vs_BuildTools.exe</code></li>
-            <li>Installer starts:
+            <li>In <code>bundle_setup-files/1_Installers/</code>, double-click <code>install_vs_buildtools.bat</code></li>
+            <li>A console window will open showing installation progress</li>
+            <li><strong>What happens automatically (4-step process):</strong>
                 <ul>
-                    <li>Installer will download components (~5GB)</li>
+                    <li><strong>Step 1:</strong> Detects drive location and prepares paths</li>
+                    <li><strong>Step 2:</strong> Copies <code>vsbs/</code> folder to drive root
+                        <ul>
+                            <li><em>Why?</em> VS installer fails from deeply nested folder paths</li>
+                            <li>Copies ~5GB (takes 1-2 minutes)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Step 3:</strong> Runs installer from drive root in <strong>offline mode</strong>
+                        <ul>
+                            <li>Uses pre-configured settings from <code>btc++.vsconfig</code></li>
+                            <li>Installs all required components automatically:
+                                <ul>
+                                    <li>Desktop development with C++</li>
+                                    <li>MSVC v143 - VS 2022 C++ x64/x86 build tools</li>
+                                    <li>Windows 11 SDK</li>
+                                    <li>C++ CMake tools, AddressSanitizer, vcpkg</li>
+                                    <li>C++ ATL and MFC libraries</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><strong>Step 4:</strong> Cleans up temporary files from drive root
+                        <ul>
+                            <li>Original <code>vsbs/</code> folder preserved in bundle for retries</li>
+                        </ul>
+                    </li>
+                    <li><strong>Total installation time: 12-17 minutes</strong> (includes copy + install)</li>
                 </ul>
             </li>
+            <li>When complete, you'll see: <code>[SUCCESS] Installation completed!</code></li>
         </ol>
-
-        <div class="critical-box">
-            <h4>CRITICAL STEP 1 - Select Workload:</h4>
-            <ul>
-                <li>In the installer window, find the <strong>"Workloads" tab</strong> (should be selected by default)</li>
-                <li>Check the box: <strong>"Desktop development with C++"</strong></li>
-            </ul>
-        </div>
 
         <img src="images/buildtools.png" class="screenshot">
-        <p class="screenshot-caption">Show the search bar and one component being searched/checked (e.g., "MSVC v143")</p>
-
-        <div class="critical-box">
-            <h4>CRITICAL STEP 2 - Select Individual Components:</h4>
-            <ol>
-                <li>Click the <strong>"Individual Components" tab</strong> (next to Workloads tab at top)</li>
-                <li>You'll see a search bar at the TOP of the Individual Components tab</li>
-                <li>For each component below (one component per line), <strong>copy the entire name and paste into the search bar</strong>, then check the box:</li>
-            </ol>
-            <pre><code>MSVC v143 - VS 2022 C++ x64/x86 build tools (Latest)
-Windows 11 SDK (10.0.26100.6901)
-C++ CMake tools for Windows
-Testing tools core features - Build Tools
-C++ AddressSanitizer
-vcpkg package manager
-C++ ATL for latest v143 build tools (x86 & x64)
-C++ MFC for latest v143 build tools (x86 & x64)</code></pre>
-            <p><strong>How to use the search bar:</strong></p>
-            <ul>
-                <li>Copy a component name (e.g., <code>MSVC v143 - VS 2022 C++ x64/x86 build tools (Latest)</code>)</li>
-                <li>Paste into search bar at top</li>
-                <li>Check the box next to the result</li>
-                <li>Clear search bar and repeat for next component</li>
-            </ul>
-        </div>
-
-        <ol start="5">
-            <li><strong>Start Installation:</strong>
-                <ul>
-                    <li>Click <strong>"Install"</strong> (wait 15-20 minutes)</li>
-                    <li>Click <strong>"Close"</strong> when complete</li>
-                </ul>
-            </li>
-        </ol>
+        <p class="screenshot-caption">The automated installer handles all component selection - no manual configuration needed!</p>
 
          <div class="stop-check">
             ⛔ STOP: Restart your computer after Build Tools installation
@@ -906,10 +893,14 @@ C++ MFC for latest v143 build tools (x86 & x64)</code></pre>
             <pre style="font-weight: 600;">bundle_setup-files/
 ├── START_HERE.txt
 ├── 1_Installers/
+│   ├── Miniconda3-latest-Windows-x86_64.exe
 │   ├── cuda_12.8.0_571.96_windows.exe
 │   ├── Git-2.52.0-64-bit.exe
-│   ├── Miniconda3-latest-Windows-x86_64.exe
-│   └── vs_BuildTools.exe
+│   ├── install_vs_buildtools.bat
+│   └── vsbs/                              (VS Build Tools folder)
+│       ├── vs_BuildTools.exe
+│       ├── btc++.vsconfig
+│       └── packages/                      (pre-downloaded components)
 │
 ├── 2_Registry_And_Verification/
 │   ├── enable_long_paths.reg
@@ -1232,10 +1223,11 @@ First run will download AI models (~13GB) - please be patient.</code></pre>
             <h4>Problem: <code>verify_prerequisites.bat</code> shows [FAIL] for Visual Studio</h4>
             <strong>Solution:</strong>
             <ul>
-                <li><strong>Most likely cause:</strong> Missing individual components</li>
-                <li><strong>Fix:</strong> Re-run <code>vs_BuildTools.exe</code> from <code>1_Installers/</code></li>
-                <li>Choose <strong>"Modify"</strong> if already installed</li>
-                <li>Make sure ALL 8 individual components are checked (see Step 2)</li>
+                <li><strong>Most likely cause:</strong> Installation incomplete or interrupted</li>
+                <li><strong>Fix:</strong> Re-run <code>install_vs_buildtools.bat</code> from <code>1_Installers/</code></li>
+                <li>The automated installer will detect existing components and complete any missing parts</li>
+                <li>Wait for <code>[SUCCESS] Installation completed!</code> message</li>
+                <li>Restart computer</li>
                 <li>Run <code>verify_prerequisites.bat</code> again</li>
             </ul>
         </div>
