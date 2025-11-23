@@ -547,8 +547,8 @@
             <div class="nav-section">
                 <div class="nav-section-title">Phase 1: Foundation</div>
                 <a href="#step1" class="nav-item" data-section="step1">Step 1: Install Miniconda</a>
-                <a href="#step2" class="nav-item" data-section="step2">Step 2: Install CUDA Toolkit</a>
-                <a href="#step3" class="nav-item" data-section="step3">Step 3: Visual Studio Build Tools</a>
+                <a href="#step2" class="nav-item" data-section="step2">Step 2: Visual Studio Build Tools</a>
+                <a href="#step3" class="nav-item" data-section="step3">Step 3: Install CUDA Toolkit</a>
                 <a href="#step4" class="nav-item" data-section="step4">Step 4: Install Git</a>
                 <a href="#step5" class="nav-item" data-section="step5">Step 5: Enable Long Paths</a>
                 <a href="#phase1-verify" class="nav-item" data-section="phase1-verify">Phase 1 Verification</a>
@@ -635,15 +635,6 @@
 
             <li><strong>Understand what the installer will create:</strong>
                 <p>When you run Phase 2 (the automated installer), it will <strong>automatically</strong> create a <code>ComfyUI</code> folder at the <strong>same root location</strong> as your bundle. You don't need to choose anything - the script proceeds autonomously.</p>
-                <p><strong>Final result after installation:</strong></p>
-                <pre><code>D:\SD3D\                          (or your chosen folder name)
-├── bundle-DONE/                  (bundle renamed after successful install)
-│   └── ... (all setup files)
-├── ComfyUI/                      (created automatically by installer)
-│   ├── main.py
-│   └── custom_nodes/
-│       └── ComfyUI-Hunyuan3D-2_1/  (extracted automatically)
-└── start_comfyui.bat             (desktop shortcut created)</code></pre>
             </li>
 
             <li><strong>No further action needed - proceed to Phase 1:</strong>
@@ -671,8 +662,8 @@
         <p>These are industry-standard tools that require one-time setup:</p>
         <ol>
             <li><strong>Miniconda</strong> - Python environment manager (10 minutes)</li>
+            <li><strong>Visual Studio 2022 Build Tools</strong> - Microsoft C++ compiler (20 minutes) <strong class="badge badge-important">MUST install BEFORE CUDA</strong></li>
             <li><strong>CUDA Toolkit 12.8</strong> - NVIDIA GPU computing platform (15 minutes + restart)</li>
-            <li><strong>Visual Studio 2022 Build Tools</strong> - Microsoft C++ compiler (20 minutes)</li>
             <li><strong>Git for Windows</strong> - Version control system (5 minutes)</li>
             <li><strong>Automated Verification</strong> - Run <code>verify_prerequisites.bat</code> (handles all checks and config)</li>
         </ol>
@@ -719,49 +710,13 @@
 
         <hr>
 
-        <h3 id="step2">Step 2: Install CUDA Toolkit 12.8 (NVIDIA GPU Computing)</h3>
-        <p><strong>What it does:</strong> Enables GPU acceleration for AI models (CRITICAL for performance)</p>
-
-        <h4>Installation:</h4>
-        <ol>
-            <li>In <code>bundle_setup-files/1_Installers/</code>, double-click <code>cuda_12.8.0_windows_10.exe</code></li>
-            <li>Installer starts:
-                <ul>
-                    <li><strong class="badge badge-important">IMPORTANT:</strong> Choose <strong>"Custom (Advanced)"</strong> installation (NOT Express!)</li>
-                    <li>Click <strong>"Next"</strong></li>
-                </ul>
-            </li>
-            <li><strong>Select components to install:</strong>
-                <ul>
-                    <li><strong>UNCHECK ALL</strong> except:</li>
-                    <li>✓ <strong>CUDA Toolkit 12.8</strong> (check this box - this is what we need)</li>
-                    <li><strong>UNCHECK:</strong> CUDA Driver (may conflict with your existing drivers)</li>
-                    <li><strong>UNCHECK:</strong> GeForce Experience / NVIDIA App (unnecessary bloat)</li>
-                    <li><strong>UNCHECK:</strong> Visual Studio Integration (we don't need this)</li>
-                    <li>Click <strong>"Next"</strong></li>
-                </ul>
-            </li>
-            <li>Accept default installation location, click <strong>"Next"</strong>
-                <ul>
-                    <li>Wait 10-15 minutes for installation</li>
-                    <li>Click <strong>"Close"</strong> when complete</li>
-                </ul>
-            </li>
-        </ol>
-
-        <div class="screenshot-placeholder">
-            Screenshot: CUDA installer showing "Custom (Advanced)" selected and component selection screen
-        </div>
-        <p class="screenshot-caption">Show ONLY "CUDA Toolkit 12.8" checked, all others unchecked (Driver, GeForce Experience, etc.)</p>
-
-        <div class="stop-check">
-            ⛔ STOP: Restart your computer after CUDA installation
-        </div>
-
-        <hr>
-
-        <h3 id="step3">Step 3: Install Visual Studio 2022 Build Tools (C++ Compiler)</h3>
+        <h3 id="step2">Step 2: Install Visual Studio 2022 Build Tools (C++ Compiler)</h3>
         <p><strong>What it does:</strong> Compiles custom GPU acceleration code for Hunyuan3D</p>
+
+        <div class="warning-box">
+            <h4><strong class="badge badge-important">CRITICAL:</strong> Install Visual Studio BEFORE CUDA!</h4>
+            <p>CUDA requires Visual Studio Build Tools to be installed <strong>first</strong> so it can detect and integrate with the C++ compiler. Installing in the wrong order will cause CUDA to skip compiler integration.</p>
+        </div>
 
         <h4>Installation:</h4>
         <ol>
@@ -818,6 +773,52 @@ C++ MFC for latest v143 build tools (x86 & x64)</code></pre>
                 </ul>
             </li>
         </ol>
+
+        <hr>
+
+        <h3 id="step3">Step 3: Install CUDA Toolkit 12.8 (NVIDIA GPU Computing)</h3>
+        <p><strong>What it does:</strong> Enables GPU acceleration for AI models (CRITICAL for performance)</p>
+
+        <div class="info-box">
+            <p><strong>Why install CUDA after Visual Studio:</strong> CUDA installer will detect VS Build Tools and integrate with the C++ compiler automatically. This is required for building GPU-accelerated extensions.</p>
+        </div>
+
+        <h4>Installation:</h4>
+        <ol>
+            <li>In <code>bundle_setup-files/1_Installers/</code>, double-click <code>cuda_12.8.0_windows_10.exe</code></li>
+            <li>Installer starts:
+                <ul>
+                    <li><strong class="badge badge-important">IMPORTANT:</strong> Choose <strong>"Custom (Advanced)"</strong> installation (NOT Express!)</li>
+                    <li>Click <strong>"Next"</strong></li>
+                </ul>
+            </li>
+            <li><strong>Select components to install:</strong>
+                <ul>
+                    <li><strong>UNCHECK ALL</strong> except:</li>
+                    <li>✓ <strong>CUDA Toolkit 12.8</strong> (check this box - this is what we need)</li>
+                    <li><strong>UNCHECK:</strong> CUDA Driver (may conflict with your existing drivers)</li>
+                    <li><strong>UNCHECK:</strong> GeForce Experience / NVIDIA App (unnecessary bloat)</li>
+                    <li><strong>UNCHECK:</strong> Visual Studio Integration (already detected automatically)</li>
+                    <li>Click <strong>"Next"</strong></li>
+                </ul>
+            </li>
+            <li>Accept default installation location, click <strong>"Next"</strong>
+                <ul>
+                    <li>Wait 10-15 minutes for installation</li>
+                    <li>CUDA will automatically detect VS Build Tools and configure compiler integration</li>
+                    <li>Click <strong>"Close"</strong> when complete</li>
+                </ul>
+            </li>
+        </ol>
+
+        <div class="screenshot-placeholder">
+            Screenshot: CUDA installer showing "Custom (Advanced)" selected and component selection screen
+        </div>
+        <p class="screenshot-caption">Show ONLY "CUDA Toolkit 12.8" checked, all others unchecked (Driver, GeForce Experience, etc.)</p>
+
+        <div class="stop-check">
+            ⛔ STOP: Restart your computer after CUDA installation
+        </div>
 
         <hr>
 
@@ -903,7 +904,7 @@ C++ MFC for latest v143 build tools (x86 & x64)</code></pre>
 
         <div class="info-box">
             <strong>Bundle Folder Structure:</strong>
-            <pre style="background: #f1f5f9; padding: 15px; border-radius: 6px; margin-top: 10px; overflow-x: auto; font-weight: 600;">bundle_setup-files/
+            <pre style="font-weight: 600;">bundle_setup-files/
 ├── START_HERE.txt
 ├── 1_Installers/
 │   ├── cuda_12.8.0_571.96_windows.exe
@@ -1096,6 +1097,9 @@ First run will download AI models (~13GB) - please be patient.</code></pre>
         </ol>
 
         <h3>Loading a Workflow</h3>
+        <p><strong>The easiest way:</strong> Drag and drop a workflow <code>.json</code> file directly onto the ComfyUI web interface.</p>
+
+        <p><strong>Alternative method:</strong></p>
         <ol>
             <li>Sample workflows are in: <code>C:\AI\ComfyUI_Hunyuan3D\ComfyUI\custom_nodes\ComfyUI-Hunyuan3D-2_1\workflows\</code></li>
             <li>In ComfyUI web interface:
@@ -1116,6 +1120,77 @@ First run will download AI models (~13GB) - please be patient.</code></pre>
             <li><strong>Processing time:</strong> 4-7 minutes per model (RTX 4090)</li>
             <li>Output files saved to: <code>C:\AI\ComfyUI_Hunyuan3D\ComfyUI\output\</code></li>
         </ol>
+
+        <hr>
+
+        <h3 id="workflow-photoshop">Workflow & Photoshop Prep</h3>
+
+        <p>The bundle includes a complete 3D generation workflow and Photoshop prep tools in the <code>5_Photoshop_Prep_Workflow</code> folder.</p>
+
+        <h4>Complete 3D Gen Workflow (h21_311.json)</h4>
+        <p>This is a complete Hunyuan3D 2.1 workflow ready to use:</p>
+        <ol>
+            <li>Navigate to: <code>[YourRoot]/bundle_setup-files/5_Photoshop_Prep_Workflow/</code></li>
+            <li>Find the file: <code>h21_311.json</code></li>
+            <li><strong>Drag and drop</strong> this file onto the ComfyUI web interface</li>
+            <li>The workflow will load automatically with all nodes configured</li>
+        </ol>
+
+        <h4>Image Prep Tool (SquareCanvas.js)</h4>
+        <p>This JavaScript file batch crops and resizes source images to 518×518 pixels (required for Hunyuan3D).</p>
+
+        <div class="info-box">
+            <h4>Method 1: Run as Standalone Script (Quick & Easy)</h4>
+            <ol>
+                <li>Open Adobe Photoshop</li>
+                <li>Go to: <strong>File → Scripts → Browse...</strong></li>
+                <li>Navigate to: <code>[YourRoot]/bundle_setup-files/5_Photoshop_Prep_Workflow/</code></li>
+                <li>Select <code>SquareCanvas.js</code> and click <strong>"Open"</strong></li>
+                <li>Photoshop will prompt you to select a folder containing images</li>
+                <li>All images in that folder will be batch processed to 518×518</li>
+                <li>Processed images saved in: <code>OriginalFolder/518x518_output/</code></li>
+            </ol>
+        </div>
+
+        <div class="info-box">
+            <h4>Method 2: Record as Photoshop Action (For Repeated Use)</h4>
+            <p><strong>Why use Actions:</strong> Create a one-click button for this script, or include it in multi-step automated workflows.</p>
+
+            <ol>
+                <li><strong>Open Actions Panel:</strong>
+                    <ul>
+                        <li>Go to: <strong>Window → Actions</strong> (or press <code>Alt+F9</code>)</li>
+                    </ul>
+                </li>
+                <li><strong>Create New Action:</strong>
+                    <ul>
+                        <li>Click the <strong>"Create New Action"</strong> icon (folder with +) at bottom of Actions panel</li>
+                        <li>Name it: <code>Batch Crop 518x518</code></li>
+                        <li>Choose a Function Key (optional, e.g., <code>F2</code> for quick access)</li>
+                        <li>Click <strong>"Record"</strong></li>
+                    </ul>
+                </li>
+                <li><strong>Record the Script:</strong>
+                    <ul>
+                        <li>Go to: <strong>File → Scripts → Browse...</strong></li>
+                        <li>Select <code>SquareCanvas.js</code> and click <strong>"Open"</strong></li>
+                        <li>Cancel the folder selection prompt (we're just recording the action)</li>
+                        <li>Click <strong>"Stop Recording"</strong> (square icon) in Actions panel</li>
+                    </ul>
+                </li>
+                <li><strong>Use Your Action:</strong>
+                    <ul>
+                        <li>Select your action in the Actions panel</li>
+                        <li>Click <strong>"Play"</strong> (triangle icon), or press your assigned function key</li>
+                        <li>You can also include this action in larger action sequences</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="warning-box">
+            <p><strong>Note:</strong> SquareCanvas.js crops images to a square aspect ratio and resizes to 518×518. If your images are not square, the script will crop from the center. Back up originals before batch processing!</p>
+        </div>
 
         <hr>
 
@@ -1161,7 +1236,7 @@ First run will download AI models (~13GB) - please be patient.</code></pre>
                 <li><strong>Most likely cause:</strong> Missing individual components</li>
                 <li><strong>Fix:</strong> Re-run <code>vs_BuildTools.exe</code> from <code>1_Installers/</code></li>
                 <li>Choose <strong>"Modify"</strong> if already installed</li>
-                <li>Make sure ALL 8 individual components are checked (see Step 3)</li>
+                <li>Make sure ALL 8 individual components are checked (see Step 2)</li>
                 <li>Run <code>verify_prerequisites.bat</code> again</li>
             </ul>
         </div>
@@ -1365,8 +1440,8 @@ First run will download AI models (~13GB) - please be patient.</code></pre>
             'overview': 'What This Software Does',
             'requirements': 'System Requirements',
             'step1': 'Step 1: Install Miniconda',
-            'step2': 'Step 2: Install CUDA Toolkit',
-            'step3': 'Step 3: Visual Studio Build Tools',
+            'step2': 'Step 2: Visual Studio Build Tools',
+            'step3': 'Step 3: Install CUDA Toolkit',
             'step4': 'Step 4: Install Git',
             'step5': 'Step 5: Enable Long Paths',
             'phase1-verify': 'Phase 1 Verification',
