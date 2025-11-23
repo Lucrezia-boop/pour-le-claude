@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Installation Guide - ComfyUI with Hunyuan3D 2.1</title>
+    <style>
+        /* Color Palette */
+        :root {
+            --primary-blue: #2563eb;
+            --primary-blue-light: #3b82f6;
+            --accent-green: #059669;
+            --accent-orange: #ea580c;
+            --accent-red: #dc2626;
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+            --text-dark: #1e293b;
+            --text-medium: #475569;
+            --text-light: #64748b;
+            --border-light: #e2e8f0;
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            padding: 20px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--bg-white);
+            padding: 60px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2em;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-top: 50px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--primary-blue);
+        }
+
+        h3 {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-top: 35px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-top: 25px;
+            margin-bottom: 12px;
+        }
+
+        p {
+            margin-bottom: 16px;
+            color: var(--text-medium);
+        }
+
+        strong {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        /* Subtitle */
+        .subtitle {
+            font-size: 1.2em;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+
+        /* Purpose Block */
+        .purpose {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+            font-size: 1.05em;
+            box-shadow: var(--shadow);
+        }
+
+        /* Info Boxes */
+        .info-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--primary-blue);
+            padding: 20px 25px;
+            margin: 25px 0;
+            border-radius: 6px;
+        }
+
+        .success-box {
+            background: #f0fdf4;
+            border-left: 4px solid var(--accent-green);
+            padding: 20px 25px;
+            margin: 25px 0;
+            border-radius: 6px;
+        }
+
+        .warning-box {
+            background: #fff7ed;
+            border-left: 4px solid var(--accent-orange);
+            padding: 20px 25px;
+            margin: 25px 0;
+            border-radius: 6px;
+        }
+
+        .critical-box {
+            background: #fef2f2;
+            border-left: 4px solid var(--accent-red);
+            padding: 20px 25px;
+            margin: 25px 0;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .stop-check {
+            background: #fef2f2;
+            border: 3px solid var(--accent-red);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1em;
+            text-align: center;
+            color: var(--accent-red);
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 15px 0 15px 30px;
+            color: var(--text-medium);
+        }
+
+        li {
+            margin: 10px 0;
+            line-height: 1.8;
+        }
+
+        li strong {
+            color: var(--text-dark);
+        }
+
+        /* Code Blocks */
+        code {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+            background: #f1f5f9;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.92em;
+            color: #dc2626;
+            font-weight: 500;
+        }
+
+        pre {
+            background: #1e293b;
+            color: #f1f5f9;
+            padding: 20px 25px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            border: 1px solid #334155;
+            box-shadow: var(--shadow);
+        }
+
+        pre code {
+            background: none;
+            color: #f1f5f9;
+            padding: 0;
+            font-size: 0.95em;
+            font-weight: 400;
+        }
+
+        /* Links */
+        a {
+            color: var(--primary-blue-light);
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+            transition: border-bottom 0.2s;
+        }
+
+        a:hover {
+            border-bottom: 1px solid var(--primary-blue-light);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: var(--primary-blue);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-medium);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:nth-child(even) {
+            background: var(--bg-light);
+        }
+
+        /* Horizontal Rule */
+        hr {
+            border: none;
+            border-top: 2px solid var(--border-light);
+            margin: 40px 0;
+        }
+
+        /* Phase Headers */
+        .phase-header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-light) 100%);
+            color: white;
+            padding: 25px 30px;
+            border-radius: 8px;
+            margin: 40px 0 30px 0;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .phase-header h2 {
+            color: white;
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .badge-time {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-important {
+            background: #fecaca;
+            color: #991b1b;
+        }
+
+        /* Checkboxes for verification */
+        .checkbox {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--accent-green);
+            border-radius: 3px;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        /* Step Numbers */
+        .step-number {
+            display: inline-block;
+            background: var(--primary-blue);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 2px solid var(--border-light);
+            color: var(--text-light);
+            font-size: 0.9em;
+            text-align: center;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+            .phase-header, .info-box, .warning-box, .critical-box {
+                break-inside: avoid;
+            }
+        }
+
+        /* Screenshot Placeholders */
+        .screenshot {
+            width: 100%;
+            max-width: 800px;
+            margin: 25px auto;
+            display: block;
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            border: 2px solid var(--border-light);
+        }
+
+        .screenshot-placeholder {
+            width: 100%;
+            max-width: 800px;
+            margin: 25px auto;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            border: 3px dashed var(--primary-blue);
+            border-radius: 8px;
+            text-align: center;
+            color: var(--text-medium);
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .screenshot-placeholder::before {
+            content: "📸 ";
+            font-size: 2em;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .screenshot-small {
+            max-width: 600px;
+        }
+
+        .screenshot-caption {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9em;
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.6em;
+            }
+            h3 {
+                font-size: 1.3em;
+            }
+            .screenshot, .screenshot-placeholder {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Executive Installation Guide</h1>
+        <div class="subtitle">ComfyUI with Hunyuan3D 2.1 - For Non-Technical Users</div>
+
+        <div class="purpose">
+            <strong>Purpose:</strong> This guide will install a complete AI-powered 3D generation system (ComfyUI + Hunyuan3D 2.1) on a fresh Windows machine with minimal user interaction.
+        </div>
+
+        <h2>What This Software Does</h2>
+        <p><strong>ComfyUI with Hunyuan3D 2.1</strong> is an AI system that:</p>
+        <ul>
+            <li>Converts images into 3D models</li>
+            <li>Generates professional PBR textures (used in architecture, games, film)</li>
+            <li>Exports models in industry-standard formats (GLB, OBJ)</li>
+            <li>Runs locally on your computer (no cloud/subscription needed)</li>
+        </ul>
+
+        <div class="info-box">
+            <h4>Business Value</h4>
+            <ul>
+                <li>Rapid 3D prototyping from concept images</li>
+                <li>Architectural visualization asset creation</li>
+                <li>Integration with Blender, Unreal Engine, other 3D software</li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <h2>System Requirements</h2>
+        <h4>Hardware:</h4>
+        <ul>
+            <li>Windows 10 or Windows 11 (64-bit)</li>
+            <li>NVIDIA GPU with at least 12GB VRAM (RTX 3090/4090 recommended)</li>
+            <li>16GB+ system RAM (32GB recommended)</li>
+            <li>100GB free disk space (50GB for models, 50GB for software)</li>
+        </ul>
+
+        <h4>Software Prerequisites (to be installed):</h4>
+        <p>None initially - this guide covers everything from scratch</p>
+
+        <hr>
+
+        <h2>Installation Overview</h2>
+        <p>This installation has <strong>TWO PHASES</strong>:</p>
+
+        <h3>PHASE 1: Foundation Software (Manual Installation) <span class="badge badge-time">~1 hour</span></h3>
+        <p>These are industry-standard tools that require one-time setup:</p>
+        <ol>
+            <li><strong>Miniconda</strong> - Python environment manager (10 minutes)</li>
+            <li><strong>CUDA Toolkit 12.8</strong> - NVIDIA GPU computing platform (15 minutes + restart)</li>
+            <li><strong>Visual Studio 2022 Build Tools</strong> - Microsoft C++ compiler (20 minutes)</li>
+            <li><strong>Git for Windows</strong> - Version control system (5 minutes)</li>
+        </ol>
+
+        <h3>PHASE 2: ComfyUI + Hunyuan3D (Automated Script) <span class="badge badge-time">~30-45 min</span></h3>
+        <p>Everything else is automated by a single Python script:</p>
+        <ul>
+            <li>Creates isolated Python environment</li>
+            <li>Downloads and installs ComfyUI</li>
+            <li>Installs Hunyuan3D extension with all dependencies</li>
+            <li>Compiles custom GPU acceleration code</li>
+            <li>Verifies installation</li>
+            <li>Creates desktop shortcut</li>
+        </ul>
+
+        <div class="phase-header">
+            <h2>PHASE 1: Foundation Software Installation</h2>
+        </div>
+
+        <h3>Step 1: Install Miniconda (Python Environment Manager)</h3>
+        <p><strong>What it does:</strong> Manages different Python versions without conflicts</p>
+
+        <h4>Installation:</h4>
+        <ol>
+            <li>In the <code>bundle_setup-files</code> folder you extracted, navigate to: <code>1_Installers/</code></li>
+            <li>Double-click <code>Miniconda3-latest-Windows-x86_64.exe</code></li>
+            <li>Installation wizard:
+                <ul>
+                    <li>Click "Next" → "I Agree"</li>
+                    <li><strong class="badge badge-important">IMPORTANT:</strong> Select "Just Me (recommended)"</li>
+                    <li><strong class="badge badge-important">IMPORTANT:</strong> Check "Add installation to my PATH environment variable" ✓</li>
+                    <li><strong class="badge badge-important">IMPORTANT:</strong> Check "Register Miniconda3 as my default Python 3.13" ✓</li>
+                    <li>Click "Install" (wait ~2 minutes)</li>
+                    <li>Click "Finish"</li>
+                </ul>
+            </li>
+        </ol>
+
+        <div class="screenshot-placeholder">
+            Screenshot: Miniconda installer showing "Add to PATH" checkbox (CHECKED)
+        </div>
+        <p class="screenshot-caption">This is the most critical checkbox - must be checked for installation to succeed!</p>
+
+        <div class="critical-box">
+            <h4>CRITICAL VERIFICATION:</h4>
+            <ol>
+                <li>Open Command Prompt (search "cmd" in Start menu)</li>
+                <li>Type: <code>python --version</code></li>
+                <li>Should show: <code>Python 3.x.x</code> (with Miniconda in the path)</li>
+                <li><strong>If you get "python is not recognized":</strong>
+                    <ul>
+                        <li>You MUST uninstall and reinstall Miniconda</li>
+                        <li>This time CHECK the "Add to PATH" checkbox during installation</li>
+                        <li>The automated installer WILL FAIL without this!</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <h4>Also verify conda:</h4>
+        <ul>
+            <li>In the same Command Prompt, type: <code>conda --version</code></li>
+            <li>Should show: <code>conda 24.x.x</code> (or similar)</li>
+            <li>If command not found, restart Command Prompt and try again</li>
+        </ul>
+
+        <div class="screenshot-placeholder screenshot-small">
+            Screenshot: Command Prompt showing "python --version" output successfully
+        </div>
+        <p class="screenshot-caption">Example: "Python 3.11.x" confirms PATH is configured correctly</p>
+
+        <div class="stop-check">
+            ⛔ STOP & CHECK: Do NOT proceed to Step 2 until both <code>python --version</code> and <code>conda --version</code> work correctly!
+        </div>
+
+        <hr>
+
+        <h3>Step 2: Install CUDA Toolkit 12.8 (NVIDIA GPU Computing)</h3>
+        <p><strong>What it does:</strong> Enables GPU acceleration for AI models (CRITICAL for performance)</p>
+
+        <h4>Installation:</h4>
+        <ol>
+            <li>In <code>bundle_setup-files/1_Installers/</code>, double-click <code>cuda_12.8.0_windows_10.exe</code></li>
+            <li>Installer starts:
+                <ul>
+                    <li><strong class="badge badge-important">IMPORTANT:</strong> Choose "Custom (Advanced)" installation (NOT Express!)</li>
+                    <li>Click "Next"</li>
+                </ul>
+            </li>
+            <li><strong>Select components to install:</strong>
+                <ul>
+                    <li><strong>UNCHECK ALL</strong> except:</li>
+                    <li>✓ <strong>CUDA Toolkit 12.8</strong> (check this box - this is what we need)</li>
+                    <li><strong>UNCHECK:</strong> CUDA Driver (may conflict with your existing drivers)</li>
+                    <li><strong>UNCHECK:</strong> GeForce Experience / NVIDIA App (unnecessary bloat)</li>
+                    <li><strong>UNCHECK:</strong> Visual Studio Integration (we don't need this)</li>
+                    <li>Click "Next"</li>
+                </ul>
+            </li>
+            <li>Accept default installation location, click "Next"
+                <ul>
+                    <li>Wait 10-15 minutes for installation</li>
+                    <li>Click "Close" when complete</li>
+                </ul>
+            </li>
+        </ol>
+
+        <div class="screenshot-placeholder">
+            Screenshot: CUDA installer showing "Custom (Advanced)" selected and component selection screen
+        </div>
+        <p class="screenshot-caption">Show ONLY "CUDA Toolkit 12.8" checked, all others unchecked (Driver, GeForce Experience, etc.)</p>
+
+        <div class="warning-box">
+            <strong>⚠️ CRITICAL: Restart your computer</strong> after CUDA installation
+        </div>
+
+        <hr>
+
+        <h3>Step 3: Install Visual Studio 2022 Build Tools (C++ Compiler)</h3>
+        <p><strong>What it does:</strong> Compiles custom GPU acceleration code for Hunyuan3D</p>
+
+        <h4>Installation:</h4>
+        <ol>
+            <li>In <code>bundle_setup-files/1_Installers/</code>, double-click <code>vs_BuildTools.exe</code></li>
+            <li>Installer starts:
+                <ul>
+                    <li>Installer will download components (~5GB)</li>
+                </ul>
+            </li>
+        </ol>
+
+        <div class="critical-box">
+            <h4>CRITICAL STEP 1 - Select Workload:</h4>
+            <ul>
+                <li>In the installer window, find the <strong>"Workloads" tab</strong> (should be selected by default)</li>
+                <li>Check the box: <strong>"Desktop development with C++"</strong></li>
+            </ul>
+        </div>
+
+        <div class="critical-box">
+            <h4>CRITICAL STEP 2 - Select Individual Components:</h4>
+            <ol>
+                <li>Click the <strong>"Individual Components" tab</strong> (next to Workloads tab at top)</li>
+                <li>You'll see a search bar at the TOP of the Individual Components tab</li>
+                <li>For each component below, <strong>copy the entire name and paste into the search bar</strong>, then check the box:</li>
+            </ol>
+            <pre><code>MSVC v143 - VS 2022 C++ x64/x86 build tools (Latest)
+Windows 11 SDK (10.0.26100.6901)
+C++ CMake tools for Windows
+Testing tools core features - Build Tools
+C++ AddressSanitizer
+vcpkg package manager
+C++ ATL for latest v143 build tools (x86 & x64)
+C++ MFC for latest v143 build tools (x86 & x64)</code></pre>
+            <p><strong>How to use the search bar:</strong></p>
+            <ul>
+                <li>Copy a component name (e.g., <code>MSVC v143 - VS 2022 C++ x64/x86 build tools (Latest)</code>)</li>
+                <li>Paste into search bar at top</li>
+                <li>Check the box next to the result</li>
+                <li>Clear search bar and repeat for next component</li>
+            </ul>
+        </div>
+
+        <div class="screenshot-placeholder">
+            Screenshot: VS Build Tools - Individual Components tab with search bar at top
+        </div>
+        <p class="screenshot-caption">Show the search bar and one component being searched/checked (e.g., "MSVC v143")</p>
+
+        <ol start="5">
+            <li><strong>Start Installation:</strong>
+                <ul>
+                    <li>Click "Install" (wait 15-20 minutes)</li>
+                    <li>Click "Close" when complete</li>
+                </ul>
+            </li>
+        </ol>
+
+        <h4>Verify installation:</h4>
+        <ul>
+            <li>Open Command Prompt</li>
+            <li>Type: <code>dir "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvarsall.bat"</code></li>
+            <li>Should show file found (not "File Not Found")</li>
+        </ul>
+
+        <hr>
+
+        <h3>Step 4: Install Git for Windows (Version Control)</h3>
+        <p><strong>What it does:</strong> Downloads code repositories (required for ComfyUI installation)</p>
+
+        <h4>Installation:</h4>
+        <ol>
+            <li>In <code>bundle_setup-files/1_Installers/</code>, double-click <code>Git-x.xx.x-64-bit.exe</code></li>
+            <li>Installer starts:
+                <ul>
+                    <li>Click "Next" through most options (defaults are fine)</li>
+                    <li><strong class="badge badge-important">IMPORTANT:</strong> When you see "Adjusting your PATH environment"
+                        <ul><li>Select: "Git from the command line and also from 3rd-party software"</li></ul>
+                    </li>
+                    <li><strong class="badge badge-important">IMPORTANT:</strong> When you see "Configuring the line ending conversions"
+                        <ul><li>Select: "Checkout as-is, commit as-is"</li></ul>
+                    </li>
+                    <li>Continue clicking "Next" → "Install"</li>
+                    <li>Click "Finish"</li>
+                </ul>
+            </li>
+        </ol>
+
+        <div class="critical-box">
+            <h4>Configure Git for long paths (CRITICAL for ComfyUI):</h4>
+            <ol>
+                <li>Open Command Prompt</li>
+                <li>Type: <code>git config --global core.longpaths true</code></li>
+                <li>Press Enter (no output is normal)</li>
+            </ol>
+        </div>
+
+        <div class="screenshot-placeholder screenshot-small">
+            Screenshot: Command Prompt showing "git config --global core.longpaths true" command
+        </div>
+        <p class="screenshot-caption">This command has no output - just shows the next prompt line (normal behavior)</p>
+
+        <hr>
+
+        <h3>Step 5: Enable Long Paths in Windows (CRITICAL)</h3>
+        <p><strong>What it does:</strong> Allows Windows to handle long file paths (required for Python packages)</p>
+
+        <h4>Steps:</h4>
+        <ol>
+            <li>In <code>bundle_setup-files/2_Registry_And_Verification/</code>, double-click <code>enable_long_paths.reg</code></li>
+            <li>Click "Yes" to UAC prompt</li>
+            <li>Click "Yes" to registry edit confirmation</li>
+            <li>Click "OK" when done</li>
+        </ol>
+
+        <div class="warning-box">
+            <strong>⚠️ CRITICAL: Restart your computer</strong> after enabling long paths
+        </div>
+
+        <hr>
+
+        <div class="success-box">
+            <h3>PHASE 1 COMPLETE - VERIFICATION</h3>
+            <p><strong>After restarting from Step 5:</strong></p>
+            <ol>
+                <li>In <code>bundle_setup-files/2_Registry_And_Verification/</code>, double-click <code>verify_prerequisites.bat</code></li>
+                <li>You should see a series of checks with <code>[OK]</code> messages:
+                    <pre><code>[OK] Python found: Python 3.x.x
+[OK] Conda found: conda 24.x.x
+[OK] CUDA 12.8 found
+[OK] Visual Studio Build Tools found
+[OK] Git found: git version 2.x.x
+[OK] Long paths enabled</code></pre>
+                </li>
+                <li><strong>If ANY check shows [FAIL]:</strong> Review that installation step and fix it before proceeding</li>
+                <li>Run <code>verify_prerequisites.bat</code> again until all show <code>[OK]</code></li>
+            </ol>
+            <div class="stop-check">
+                ⛔ STOP & CHECK: Do NOT proceed to Phase 2 until ALL checks pass!
+            </div>
+        </div>
+
+        <div class="phase-header">
+            <h2>PHASE 2: Automated ComfyUI + Hunyuan3D Installation</h2>
+        </div>
+
+        <h3>Pre-Installation Setup</h3>
+
+        <div class="info-box">
+            <strong>Bundle Folder Structure:</strong>
+            <pre style="background: #f1f5f9; padding: 15px; border-radius: 6px; margin-top: 10px; overflow-x: auto;">
+bundle_setup-files/
+├── START_HERE.txt
+├── 1_Installers/
+│   ├── Miniconda3-latest-Windows-x86_64.exe
+│   ├── cuda_12.8.0_windows_10.exe
+│   ├── vs_BuildTools.exe
+│   └── Git-2.xx.x-64-bit.exe
+├── 2_Registry_And_Verification/
+│   ├── enable_long_paths.reg
+│   └── verify_prerequisites.bat
+├── 3_Automated_Install/
+│   ├── install_comfyui_hunyuan3d.bat
+│   ├── install_comfyui_hunyuan3d.py
+│   ├── requirements_fixed.txt
+│   └── ComfyUI-Hunyuan3D-2_1.zip <span style="color: #dc2626;">← YOU COPY HERE</span>
+└── 4_Testing_And_Cleanup/
+    ├── test_hunyuan3d.bat
+    └── cleanup_installation.bat</pre>
+        </div>
+
+        <ol>
+            <li><strong>Prepare the Hunyuan3D files:</strong>
+                <ul>
+                    <li>You should have received <code>ComfyUI-Hunyuan3D-2_1.zip</code> separately</li>
+                    <li><strong>Step 1:</strong> Copy <code>ComfyUI-Hunyuan3D-2_1.zip</code> to <code>bundle_setup-files/3_Automated_Install/</code></li>
+                    <li><strong>Step 2:</strong> Right-click the zip file → Extract All → Extract to <code>3_Automated_Install\</code> folder (extract in-place)</li>
+                    <li><strong>Step 3:</strong> Delete the <code>ComfyUI-Hunyuan3D-2_1.zip</code> file after extraction</li>
+                    <li><strong class="badge badge-important">RESULT:</strong> You should see a <code>ComfyUI-Hunyuan3D-2_1</code> folder (NOT a .zip) in <code>3_Automated_Install/</code></li>
+                </ul>
+            </li>
+        </ol>
+
+        <hr>
+
+        <h3>Running the Automated Installer</h3>
+        <ol>
+            <li><strong>Start the installer:</strong>
+                <ul>
+                    <li>In <code>bundle_setup-files/3_Automated_Install/</code>, double-click <code>install_comfyui_hunyuan3d.bat</code></li>
+                    <li>A black console window will open - <strong>DO NOT CLOSE IT!</strong></li>
+                    <li>Script will check if Python is available</li>
+                    <li>If check passes, installation begins automatically</li>
+                </ul>
+            </li>
+            <li><strong>What the script does (fully automated):</strong>
+                <ul>
+                    <li>Creates conda environment "comfyui_py311" with Python 3.11</li>
+                    <li>Installs PyTorch 2.9.0 with CUDA 12.8 support</li>
+                    <li>Clones ComfyUI from GitHub</li>
+                    <li>Installs 50+ Python packages (AI, 3D, image processing)</li>
+                    <li>Extracts and configures Hunyuan3D nodes</li>
+                    <li>Compiles custom GPU acceleration code (custom_rasterizer, mesh_inpaint_processor)</li>
+                    <li>Verifies all components are working</li>
+                    <li>Creates desktop shortcut: "ComfyUI Hunyuan3D"</li>
+                </ul>
+            </li>
+            <li><strong>During installation, you will see:</strong>
+                <ul>
+                    <li><code>[STEP 1/13]</code> through <code>[STEP 13/13]</code> progress indicators</li>
+                    <li>Package installation progress bars</li>
+                    <li>Compilation output (lots of technical text - this is normal)</li>
+                    <li><code>[OK]</code> or <code>[SUCCESS]</code> messages for each completed step</li>
+                    <li><strong>TOTAL TIME: 30-45 minutes</strong> (depending on internet speed)</li>
+                </ul>
+            </li>
+        </ol>
+
+        <div class="success-box">
+            <h4>Installation complete when you see:</h4>
+            <pre><code>========================================
+INSTALLATION COMPLETE!
+========================================
+
+Desktop shortcut created: ComfyUI Hunyuan3D
+
+To start ComfyUI:
+1. Double-click desktop shortcut, OR
+2. Run: start_comfyui.bat
+
+First run will download AI models (~13GB) - please be patient.</code></pre>
+        </div>
+
+        <div class="screenshot-placeholder">
+            Screenshot: Console showing "INSTALLATION COMPLETE!" message with all steps marked [OK]
+        </div>
+        <p class="screenshot-caption">All 13 steps should show [OK] or [SUCCESS] - this confirms successful installation</p>
+
+        <hr>
+
+        <h3>First Launch</h3>
+        <ol>
+            <li><strong>Start ComfyUI:</strong>
+                <ul>
+                    <li>Double-click the "ComfyUI Hunyuan3D" shortcut on your desktop</li>
+                    <li>A black console window will open (don't close this!)</li>
+                </ul>
+            </li>
+            <li><strong>First-time model download (IMPORTANT):</strong>
+                <ul>
+                    <li>On first launch, ComfyUI will download AI models (~13GB)</li>
+                    <li>You'll see: "Downloading hunyuan3d-dit-v2-1..." and "Downloading hunyuan3d-paintpbr-v2-1..."</li>
+                    <li>This takes 15-30 minutes depending on internet speed</li>
+                    <li><strong>DO NOT CLOSE</strong> the console window during download</li>
+                </ul>
+            </li>
+            <li><strong>ComfyUI is ready when you see:</strong>
+                <pre><code>To see the GUI go to: http://127.0.0.1:8188</code></pre>
+            </li>
+            <li><strong>Open the interface:</strong>
+                <ul>
+                    <li>Open your web browser (Chrome, Edge, Firefox)</li>
+                    <li>Go to: <a href="http://127.0.0.1:8188" target="_blank">http://127.0.0.1:8188</a></li>
+                    <li>You should see the ComfyUI interface</li>
+                </ul>
+            </li>
+            <li><strong>Verify Hunyuan3D nodes are loaded:</strong>
+                <ul>
+                    <li>In the console window, scroll up and look for:</li>
+                </ul>
+                <pre><code>Loading custom nodes:
+  [OK] ComfyUI-Hunyuan3D-2_1 loaded
+  Nodes: AvaHy_21_MeshGenerator, AvaHy_21_VAEDecode, ...</code></pre>
+            </li>
+        </ol>
+
+        <div class="screenshot-placeholder">
+            Screenshot: ComfyUI web interface at http://127.0.0.1:8188
+        </div>
+        <p class="screenshot-caption">The node-based workflow interface - this is what success looks like!</p>
+
+        <div class="screenshot-placeholder screenshot-small">
+            Screenshot: Console window showing "[OK] ComfyUI-Hunyuan3D-2_1 loaded" message
+        </div>
+        <p class="screenshot-caption">Scroll up in the console to find this confirmation that nodes loaded correctly</p>
+
+        <hr>
+
+        <h2>Using ComfyUI with Hunyuan3D</h2>
+
+        <h3>Daily Usage</h3>
+        <p><strong>Every time you want to use ComfyUI:</strong></p>
+        <ol>
+            <li>Double-click "ComfyUI Hunyuan3D" desktop shortcut</li>
+            <li>Wait for console to show: "To see the GUI go to: http://127.0.0.1:8188"</li>
+            <li>Open browser to: <a href="http://127.0.0.1:8188" target="_blank">http://127.0.0.1:8188</a></li>
+        </ol>
+
+        <p><strong>To close ComfyUI:</strong></p>
+        <ol>
+            <li>Close the browser tab</li>
+            <li>In the console window, press <code>Ctrl + C</code></li>
+            <li>Close the console window</li>
+        </ol>
+
+        <h3>Loading a Workflow</h3>
+        <ol>
+            <li>Sample workflows are in: <code>C:\AI\ComfyUI_Hunyuan3D\ComfyUI\custom_nodes\ComfyUI-Hunyuan3D-2_1\workflows\</code></li>
+            <li>In ComfyUI web interface:
+                <ul>
+                    <li>Click "Load" button</li>
+                    <li>Navigate to workflows folder</li>
+                    <li>Select a <code>.json</code> workflow file</li>
+                    <li>Click "Open"</li>
+                </ul>
+            </li>
+        </ol>
+
+        <h3>Generating 3D Models</h3>
+        <ol>
+            <li>Load a workflow (see above)</li>
+            <li>Upload an image (drag & drop into "Load Image" node)</li>
+            <li>Click "Queue Prompt" button</li>
+            <li><strong>Processing time:</strong> 4-7 minutes per model (RTX 4090)</li>
+            <li>Output files saved to: <code>C:\AI\ComfyUI_Hunyuan3D\ComfyUI\output\</code></li>
+        </ol>
+
+        <hr>
+
+        <h2>Troubleshooting</h2>
+
+        <h3>Installation Issues</h3>
+
+        <div class="warning-box">
+            <h4>Problem: <code>conda: command not found</code></h4>
+            <strong>Solution:</strong>
+            <ul>
+                <li>Restart Command Prompt, or restart computer</li>
+                <li>Verify Miniconda is in PATH: <code>where conda</code></li>
+            </ul>
+        </div>
+
+        <div class="warning-box">
+            <h4>Problem: <code>nvcc: command not found</code></h4>
+            <strong>Solution:</strong>
+            <ul>
+                <li>CUDA not installed correctly</li>
+                <li>Verify: <code>dir "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\bin\nvcc.exe"</code></li>
+                <li>If missing, reinstall CUDA 12.8</li>
+            </ul>
+        </div>
+
+        <div class="warning-box">
+            <h4>Problem: Compilation errors mentioning "vcvarsall.bat not found"</h4>
+            <strong>Solution:</strong>
+            <ul>
+                <li>Visual Studio Build Tools not installed correctly</li>
+                <li>Verify: <code>dir "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvarsall.bat"</code></li>
+                <li>If missing, reinstall Build Tools with all 8 individual components</li>
+            </ul>
+        </div>
+
+        <div class="warning-box">
+            <h4>Problem: Python package installation fails with "No space left on device"</h4>
+            <strong>Solution:</strong>
+            <ul>
+                <li>Free up disk space (need 100GB total free space)</li>
+                <li>Clear temp files: <code>cleanmgr</code> in Start menu</li>
+            </ul>
+        </div>
+
+        <div class="warning-box">
+            <h4>Problem: Git clone fails with "filename too long"</h4>
+            <strong>Solution:</strong>
+            <ul>
+                <li>Long paths not enabled</li>
+                <li>Run: <code>git config --global core.longpaths true</code></li>
+                <li>Enable in Windows registry (see Step 5 in Phase 1)</li>
+            </ul>
+        </div>
+
+        <h3>Runtime Issues</h3>
+
+        <div class="warning-box">
+            <h4>Problem: Console shows errors on startup</h4>
+            <strong>Solution:</strong>
+            <ul>
+                <li>Check: ComfyUI-Hunyuan3D-2_1 nodes loaded correctly</li>
+                <li>Look for: <code>[OK] ComfyUI-Hunyuan3D-2_1 loaded</code> in console</li>
+                <li>If missing, re-run installer: <code>python install_comfyui_hunyuan3d.py --reinstall-nodes</code></li>
+            </ul>
+        </div>
+
+        <div class="warning-box">
+            <h4>Problem: "CUDA out of memory" error</h4>
+            <strong>Solution:</strong>
+            <ul>
+                <li>Your GPU has insufficient VRAM</li>
+                <li>Try: Close other GPU-intensive applications</li>
+                <li>Minimum required: 12GB VRAM</li>
+            </ul>
+        </div>
+
+        <div class="warning-box">
+            <h4>Problem: Models not downloading</h4>
+            <strong>Solution:</strong>
+            <ul>
+                <li>Check: Internet connection and firewall settings</li>
+                <li>Models download to: <code>C:\Users\[YourName]\.cache\hy3dgen\tencent\Hunyuan3D-2.1\</code></li>
+                <li>Can manually download and place in this folder</li>
+            </ul>
+        </div>
+
+        <div class="warning-box">
+            <h4>Problem: Slow performance (>15 minutes per model)</h4>
+            <strong>Solution:</strong>
+            <ul>
+                <li>Check: CUDA is being used (not CPU)</li>
+                <li>In console, look for: "CUDA available: True"</li>
+                <li>If False, reinstall CUDA Toolkit 12.8</li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <h2>File Locations Reference</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Component</th>
+                    <th>Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Installation Root</strong></td>
+                    <td><code>C:\AI\ComfyUI_Hunyuan3D\</code></td>
+                </tr>
+                <tr>
+                    <td><strong>ComfyUI</strong></td>
+                    <td><code>C:\AI\ComfyUI_Hunyuan3D\ComfyUI\</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Hunyuan3D Nodes</strong></td>
+                    <td><code>C:\AI\ComfyUI_Hunyuan3D\ComfyUI\custom_nodes\ComfyUI-Hunyuan3D-2_1\</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Workflows</strong></td>
+                    <td><code>C:\AI\ComfyUI_Hunyuan3D\ComfyUI\custom_nodes\ComfyUI-Hunyuan3D-2_1\workflows\</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Output Files</strong></td>
+                    <td><code>C:\AI\ComfyUI_Hunyuan3D\ComfyUI\output\</code></td>
+                </tr>
+                <tr>
+                    <td><strong>AI Models Cache</strong></td>
+                    <td><code>C:\Users\[YourName]\.cache\hy3dgen\tencent\Hunyuan3D-2.1\</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Conda Environment</strong></td>
+                    <td><code>C:\Users\[YourName]\.conda\envs\comfyui_py311\</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Startup Script</strong></td>
+                    <td><code>C:\AI\ComfyUI_Hunyuan3D\start_comfyui.bat</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Desktop Shortcut</strong></td>
+                    <td><code>C:\Users\[YourName]\Desktop\ComfyUI Hunyuan3D.lnk</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2>Support & Documentation</h2>
+
+        <h3>Log Files</h3>
+        <p>If something goes wrong, these files contain detailed information:</p>
+        <ul>
+            <li>Installation log: <code>C:\AI\ComfyUI_Hunyuan3D\installation_log.txt</code></li>
+            <li>ComfyUI console: (visible in the black console window)</li>
+        </ul>
+
+        <h3>For Technical Support</h3>
+        <p>Provide these details:</p>
+        <ol>
+            <li>Screenshot of error message</li>
+            <li>Contents of <code>installation_log.txt</code></li>
+            <li>Output of these commands:
+                <pre><code>conda --version
+nvcc --version
+python --version</code></pre>
+            </li>
+        </ol>
+
+        <hr>
+
+        <h2>Appendix: What Gets Installed</h2>
+
+        <h3>Software Components</h3>
+        <ul>
+            <li><strong>Miniconda:</strong> Python environment manager</li>
+            <li><strong>Python 3.11:</strong> Programming language (isolated in conda environment)</li>
+            <li><strong>CUDA Toolkit 12.8:</strong> NVIDIA GPU computing platform</li>
+            <li><strong>Visual Studio Build Tools 2022:</strong> C++ compiler</li>
+            <li><strong>Git:</strong> Version control system</li>
+            <li><strong>ComfyUI:</strong> Node-based AI workflow interface</li>
+            <li><strong>PyTorch 2.9.0:</strong> Deep learning framework</li>
+            <li><strong>50+ Python packages:</strong> AI, 3D processing, image processing libraries</li>
+        </ul>
+
+        <h3>Disk Space Usage</h3>
+        <ul>
+            <li>Miniconda: ~500MB</li>
+            <li>CUDA Toolkit: ~3GB</li>
+            <li>VS Build Tools: ~5GB</li>
+            <li>Git: ~250MB</li>
+            <li>ComfyUI + packages: ~8GB</li>
+            <li>AI models: ~13GB</li>
+            <li><strong>TOTAL: ~30GB</strong></li>
+        </ul>
+
+        <h3>Network Usage (Downloads)</h3>
+        <ul>
+            <li>Software installers: ~8GB</li>
+            <li>Python packages: ~3GB</li>
+            <li>AI models (first run): ~13GB</li>
+            <li><strong>TOTAL: ~24GB</strong></li>
+        </ul>
+
+        <div class="footer">
+            <p><strong>Guide Version:</strong> 1.1 (Post-Expert Review)</p>
+            <p><strong>Last Updated:</strong> 2025-11-22</p>
+            <p><strong>Compatible with:</strong> Windows 10/11, NVIDIA GPUs (12GB+ VRAM)</p>
+        </div>
+    </div>
+</body>
+</html>
