@@ -407,7 +407,7 @@
 <body>
     <div class="container">
         <h1>Executive Installation Guide</h1>
-        <div class="subtitle">ComfyUI with Hunyuan3D 2.1 - For Non-Technical Users</div>
+        <div class="subtitle">ComfyUI with Hunyuan3D 2.1</div>
 
         <div class="purpose">
             <strong>Purpose:</strong> This guide will install a complete AI-powered 3D generation system (ComfyUI + Hunyuan3D 2.1) on a fresh Windows machine with minimal user interaction.
@@ -421,15 +421,6 @@
             <li>Exports models in industry-standard formats (GLB, OBJ)</li>
             <li>Runs locally on your computer (no cloud/subscription needed)</li>
         </ul>
-
-        <div class="info-box">
-            <h4>Business Value</h4>
-            <ul>
-                <li>Rapid 3D prototyping from concept images</li>
-                <li>Architectural visualization asset creation</li>
-                <li>Integration with Blender, Unreal Engine, other 3D software</li>
-            </ul>
-        </div>
 
         <hr>
 
@@ -448,6 +439,18 @@
         <hr>
 
         <h2>Installation Overview</h2>
+
+        <div class="info-box">
+            <h4>🎯 Minimal Command Line Required!</h4>
+            <p>You'll only use the command line (terminal console) <strong>ONCE</strong> during Phase 1 (to verify Python installation). Everything else uses:</p>
+            <ul>
+                <li>✅ Double-click installers (Phase 1)</li>
+                <li>✅ Automated verification script (Phase 1)</li>
+                <li>✅ Automated installation script (Phase 2 - completely hands-off)</li>
+            </ul>
+            <p><strong>No manual typing of commands required after Phase 1 verification!</strong></p>
+        </div>
+
         <p>This installation has <strong>TWO PHASES</strong>:</p>
 
         <h3>PHASE 1: Foundation Software (Manual Installation) <span class="badge badge-time">~1 hour</span></h3>
@@ -457,10 +460,11 @@
             <li><strong>CUDA Toolkit 12.8</strong> - NVIDIA GPU computing platform (15 minutes + restart)</li>
             <li><strong>Visual Studio 2022 Build Tools</strong> - Microsoft C++ compiler (20 minutes)</li>
             <li><strong>Git for Windows</strong> - Version control system (5 minutes)</li>
+            <li><strong>Automated Verification</strong> - Run <code>verify_prerequisites.bat</code> (handles all checks and config)</li>
         </ol>
 
         <h3>PHASE 2: ComfyUI + Hunyuan3D (Automated Script) <span class="badge badge-time">~30-45 min</span></h3>
-        <p>Everything else is automated by a single Python script:</p>
+        <p>Everything is fully automated - just double-click and wait:</p>
         <ul>
             <li>Creates isolated Python environment</li>
             <li>Downloads and installs ComfyUI</li>
@@ -632,12 +636,10 @@ C++ MFC for latest v143 build tools (x86 & x64)</code></pre>
             </li>
         </ol>
 
-        <h4>Verify installation:</h4>
-        <ul>
-            <li>Open Command Prompt</li>
-            <li>Type: <code>dir "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvarsall.bat"</code></li>
-            <li>Should show file found (not "File Not Found")</li>
-        </ul>
+        <div class="info-box">
+            <h4>Installation Verification:</h4>
+            <p>The <code>verify_prerequisites.bat</code> script in Step 5 will automatically check that all components are installed correctly. No manual verification needed!</p>
+        </div>
 
         <hr>
 
@@ -662,19 +664,10 @@ C++ MFC for latest v143 build tools (x86 & x64)</code></pre>
             </li>
         </ol>
 
-        <div class="critical-box">
-            <h4>Configure Git for long paths (CRITICAL for ComfyUI):</h4>
-            <ol>
-                <li>Open Command Prompt</li>
-                <li>Type: <code>git config --global core.longpaths true</code></li>
-                <li>Press Enter (no output is normal)</li>
-            </ol>
+        <div class="info-box">
+            <h4>Git Configuration:</h4>
+            <p>The <code>verify_prerequisites.bat</code> script (Step 5) will automatically configure Git for long paths. No manual commands needed!</p>
         </div>
-
-        <div class="screenshot-placeholder screenshot-small">
-            Screenshot: Command Prompt showing "git config --global core.longpaths true" command
-        </div>
-        <p class="screenshot-caption">This command has no output - just shows the next prompt line (normal behavior)</p>
 
         <hr>
 
@@ -700,13 +693,26 @@ C++ MFC for latest v143 build tools (x86 & x64)</code></pre>
             <p><strong>After restarting from Step 5:</strong></p>
             <ol>
                 <li>In <code>bundle_setup-files/2_Registry_And_Verification/</code>, double-click <code>verify_prerequisites.bat</code></li>
+                <li><strong>What this script does automatically:</strong>
+                    <ul>
+                        <li>Checks Python and Conda are in PATH</li>
+                        <li>Verifies CUDA 12.8 installation</li>
+                        <li>Confirms Visual Studio Build Tools installed</li>
+                        <li>Checks Git version</li>
+                        <li>Verifies Windows long paths enabled</li>
+                        <li><strong>Automatically configures Git for long paths</strong> (no manual commands needed!)</li>
+                        <li>Checks disk space (need 50GB+ free on C: drive)</li>
+                    </ul>
+                </li>
                 <li>You should see a series of checks with <code>[OK]</code> messages:
                     <pre><code>[OK] Python found: Python 3.x.x
 [OK] Conda found: conda 24.x.x
 [OK] CUDA 12.8 found
 [OK] Visual Studio Build Tools found
 [OK] Git found: git version 2.x.x
-[OK] Long paths enabled</code></pre>
+[OK] Git configured for long paths
+[OK] Windows long paths enabled
+[OK] Disk space sufficient</code></pre>
                 </li>
                 <li><strong>If ANY check shows [FAIL]:</strong> Review that installation step and fix it before proceeding</li>
                 <li>Run <code>verify_prerequisites.bat</code> again until all show <code>[OK]</code></li>
@@ -907,51 +913,69 @@ First run will download AI models (~13GB) - please be patient.</code></pre>
 
         <h3>Installation Issues</h3>
 
+        <div class="info-box">
+            <h4>💡 First Step for Any Problem:</h4>
+            <p><strong>Re-run <code>verify_prerequisites.bat</code></strong> from <code>bundle_setup-files/2_Registry_And_Verification/</code></p>
+            <p>This script automatically checks and fixes most common issues. It will tell you exactly what's wrong and what needs to be fixed.</p>
+        </div>
+
         <div class="warning-box">
-            <h4>Problem: <code>conda: command not found</code></h4>
+            <h4>Problem: <code>verify_prerequisites.bat</code> shows [FAIL] for Python or Conda</h4>
             <strong>Solution:</strong>
             <ul>
-                <li>Restart Command Prompt, or restart computer</li>
-                <li>Verify Miniconda is in PATH: <code>where conda</code></li>
+                <li><strong>Most likely cause:</strong> Miniconda not added to PATH during installation</li>
+                <li><strong>Fix:</strong> Uninstall Miniconda from Windows Settings → Apps</li>
+                <li>Reinstall and make sure to CHECK "Add to PATH" checkbox</li>
+                <li>Restart computer</li>
+                <li>Run <code>verify_prerequisites.bat</code> again</li>
             </ul>
         </div>
 
         <div class="warning-box">
-            <h4>Problem: <code>nvcc: command not found</code></h4>
+            <h4>Problem: <code>verify_prerequisites.bat</code> shows [FAIL] for CUDA</h4>
             <strong>Solution:</strong>
             <ul>
-                <li>CUDA not installed correctly</li>
-                <li>Verify: <code>dir "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\bin\nvcc.exe"</code></li>
-                <li>If missing, reinstall CUDA 12.8</li>
+                <li><strong>Most likely cause:</strong> CUDA not installed or wrong version</li>
+                <li><strong>Fix:</strong> Reinstall CUDA 12.8 from <code>1_Installers/</code></li>
+                <li>Use "Custom (Advanced)" installation</li>
+                <li>Check ONLY "CUDA Toolkit 12.8"</li>
+                <li>Restart computer</li>
+                <li>Run <code>verify_prerequisites.bat</code> again</li>
             </ul>
         </div>
 
         <div class="warning-box">
-            <h4>Problem: Compilation errors mentioning "vcvarsall.bat not found"</h4>
+            <h4>Problem: <code>verify_prerequisites.bat</code> shows [FAIL] for Visual Studio</h4>
             <strong>Solution:</strong>
             <ul>
-                <li>Visual Studio Build Tools not installed correctly</li>
-                <li>Verify: <code>dir "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvarsall.bat"</code></li>
-                <li>If missing, reinstall Build Tools with all 8 individual components</li>
+                <li><strong>Most likely cause:</strong> Missing individual components</li>
+                <li><strong>Fix:</strong> Re-run <code>vs_BuildTools.exe</code> from <code>1_Installers/</code></li>
+                <li>Choose "Modify" if already installed</li>
+                <li>Make sure ALL 8 individual components are checked (see Step 3)</li>
+                <li>Run <code>verify_prerequisites.bat</code> again</li>
             </ul>
         </div>
 
         <div class="warning-box">
-            <h4>Problem: Python package installation fails with "No space left on device"</h4>
+            <h4>Problem: <code>verify_prerequisites.bat</code> shows [FAIL] for disk space</h4>
             <strong>Solution:</strong>
             <ul>
-                <li>Free up disk space (need 100GB total free space)</li>
-                <li>Clear temp files: <code>cleanmgr</code> in Start menu</li>
+                <li><strong>Need:</strong> 50GB+ free space on C: drive</li>
+                <li><strong>Fix:</strong> Free up disk space</li>
+                <li>Use Disk Cleanup: Search "cleanmgr" in Start menu</li>
+                <li>Consider moving personal files to external drive</li>
+                <li>Run <code>verify_prerequisites.bat</code> again</li>
             </ul>
         </div>
 
         <div class="warning-box">
-            <h4>Problem: Git clone fails with "filename too long"</h4>
+            <h4>Problem: Automated installer fails during compilation (Steps 10-11)</h4>
             <strong>Solution:</strong>
             <ul>
-                <li>Long paths not enabled</li>
-                <li>Run: <code>git config --global core.longpaths true</code></li>
-                <li>Enable in Windows registry (see Step 5 in Phase 1)</li>
+                <li><strong>Most likely cause:</strong> Visual Studio Build Tools not fully configured</li>
+                <li><strong>Fix:</strong> Re-run <code>verify_prerequisites.bat</code> first</li>
+                <li>If that passes, reinstall VS Build Tools with all 8 individual components</li>
+                <li>Re-run the automated installer (it will resume where it left off)</li>
             </ul>
         </div>
 
@@ -1060,16 +1084,23 @@ First run will download AI models (~13GB) - please be patient.</code></pre>
         </ul>
 
         <h3>For Technical Support</h3>
-        <p>Provide these details:</p>
+        <p>If you need help, provide these details:</p>
         <ol>
             <li>Screenshot of error message</li>
-            <li>Contents of <code>installation_log.txt</code></li>
-            <li>Output of these commands:
-                <pre><code>conda --version
-nvcc --version
-python --version</code></pre>
-            </li>
+            <li><strong>Output of <code>verify_prerequisites.bat</code></strong> (most important!)</li>
+            <li>Contents of <code>installation_log.txt</code> (if Phase 2 failed)</li>
         </ol>
+
+        <div class="info-box">
+            <h4>📋 How to capture verify_prerequisites.bat output:</h4>
+            <ol>
+                <li>Right-click on <code>verify_prerequisites.bat</code> → "Run as administrator"</li>
+                <li>When it finishes, right-click the title bar of the Command Prompt window</li>
+                <li>Select "Edit" → "Select All"</li>
+                <li>Press Enter to copy</li>
+                <li>Paste into an email or text file to send for support</li>
+            </ol>
+        </div>
 
         <hr>
 
@@ -1107,9 +1138,10 @@ python --version</code></pre>
         </ul>
 
         <div class="footer">
-            <p><strong>Guide Version:</strong> 1.1 (Post-Expert Review)</p>
-            <p><strong>Last Updated:</strong> 2025-11-22</p>
+            <p><strong>Guide Version:</strong> 1.2 (Automation-Focused Update)</p>
+            <p><strong>Last Updated:</strong> 2025-11-23</p>
             <p><strong>Compatible with:</strong> Windows 10/11, NVIDIA GPUs (12GB+ VRAM)</p>
+            <p><strong>Key Improvements:</strong> Eliminated manual command line usage - automated verification handles all checks and configuration</p>
         </div>
     </div>
 </body>
